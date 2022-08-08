@@ -11,7 +11,7 @@ header{
 
 header h1{ 
 	color: white;
-	font-family: Aclonica, serif;
+	font-family: 'Aclonica', sans-serif;
 }
 
 header img{
@@ -41,6 +41,6 @@ a:hover{
 }
 
 p{
-	font-family: Roboto Slab;
+	font-family: 'Roboto Slab', serif;
 	font-size: 18px;
 }
