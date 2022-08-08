@@ -1,0 +1,46 @@
+body{
+	margin: 0;
+}
+
+header{
+	background-color: #0f694b;
+	text-align:  center;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+header h1{ 
+	color: white;
+	font-family: Playfair Display, serif;
+}
+
+header img{
+	border: 50px solid whitesmoke;
+}
+
+main{
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+main img{
+	max-width: 50%;
+}
+
+h2{
+	color: darkgreen;
+	font-size: 30px;
+}
+
+a{
+	color: darkseagreen;
+}
+a:hover{
+	color:  seagreen;
+}
+
+p{
+	font-family: Quattrocento;
+	font-size: 14px;
+}
