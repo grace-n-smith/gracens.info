@@ -11,7 +11,7 @@ header{
 
 header h1{ 
 	color: white;
-	font-family: 'Aclonica', sans-serif;
+	font-family: Aclonica, sans-serif;
 }
 
 header img{
@@ -30,7 +30,7 @@ main img{
 
 h2{
 	color: darkgreen;
-	font-family: 'Aclonica', sans-serif;
+	font-family: Aclonica, sans-serif;
 	font-size: 30px;
 }
 
