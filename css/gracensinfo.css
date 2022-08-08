@@ -15,7 +15,7 @@ header h1{
 }
 
 header img{
-	border: 50px solid whitesmoke;
+	border: 20px solid whitesmoke;
 }
 
 main{
@@ -34,13 +34,13 @@ h2{
 }
 
 a{
-	color: darkseagreen;
+	color: seagreen;
 }
 a:hover{
-	color:  seagreen;
+	color: darkseagreen;
 }
 
 p{
 	font-family: Quattrocento;
-	font-size: 14px;
+	font-size: 18px;
 }
