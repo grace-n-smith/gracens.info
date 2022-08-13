@@ -11,7 +11,7 @@ header{
 
 header h1{ 
 	color: white;
-	font-family: 'Aclonica', sans-serif;
+	font-family: 'Inknut Antiqua', sans-serif;
 }
 
 header img{
@@ -30,7 +30,7 @@ main img{
 
 h2{
 	color: black;
-	font-family: 'Aclonica', sans-serif;
+	font-family: 'Inknut Antiqua', sans-serif;
 	font-size: 30px;
 }
 
@@ -42,6 +42,6 @@ a:hover{
 }
 
 p{
-	font-family: 'roboto-slab', serif;
+	font-family: 'IBM Plex Mono', serif;
 	font-size: 18px;
 }
