@@ -1,47 +1,7 @@
 body{
-	margin: 0;
+	font-family: "IBM Plex Mono", monospace;
 }
 
-header{
-	background-color: black;
-	text-align:  center;
-	padding-top: 50px;
-	padding-bottom: 50px;
-}
-
-header h1{ 
-	color: white;
-	font-family: 'Inknut Antiqua', sans-serif;
-}
-
-header img{
-	border: 20px solid whitesmoke;
-}
-
-main{
-	max-width: 800px;
-	margin: 0 auto;
-	padding: 0 20px;
-}
-
-main img{
-	max-width: 50%;
-}
-
-h2{
-	color: black;
-	font-family: 'Inknut Antiqua', sans-serif;
-	font-size: 30px;
-}
-
-a{
-	color: seagreen;
-}
-a:hover{
-	color: darkseagreen;
-}
-
-p{
-	font-family: 'IBM Plex Mono', serif;
-	font-size: 18px;
+h1 h2{
+	font-family: 'Inknut Antiqua', serif;
 }
