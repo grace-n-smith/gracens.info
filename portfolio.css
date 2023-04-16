@@ -3,6 +3,25 @@
 main {
   display: grid;
   grid-template-columns: 1fr 3fr 0.1fr;
+  grid-template-areas: "header header"
+                       "portfolio-nav portfolio-item"
+                       "portfolio-nav site-nav"
+}
+
+h1{
+  grid-area: header;
+}
+
+#portfolio-nav {
+  grid-area: portfolio-nav;
+}
+
+#portfolio-item {
+  grid-area: portfolio-item;
+}
+
+#site-nav {
+  grid-area: site-nav;
 }
 
 img {
