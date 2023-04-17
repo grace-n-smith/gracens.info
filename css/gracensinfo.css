@@ -29,7 +29,7 @@ h1, h2{
 .myNav li a {
     display: inline-block;
     text-align: center;
-    padding: 14px 16px;
+    padding: 16px 30px;
 }
 /* This is optional, however if you want to display the active link differently apply a background to it */
 .myNav li a.active {
