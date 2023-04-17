@@ -21,6 +21,7 @@ h1, h2{
     margin: 0;
 }
 .myNav li {
+	font-family: "IBM Plex Mono", monospace;
     float: left;
     /* Or you can use display: inline; */
 }
