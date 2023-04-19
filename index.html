@@ -6,19 +6,23 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">   
+    <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/0980f7281d.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
 
     <section class="header">
         <nav>
-          <a href = "index.html"><img src="img/Grace Smith-logos/Grace Smith-logos_transparent.png"</a>
-          <div class="nav-links">
+          <a href = "index.html"><img src="img/Grace Smith-logos/Grace Smith-logos_black.png"</a>
+          <div class="nav-links" id="navLinks">
             <ul>
+              <i class="fa-solid fa-xmark" on click="hideMenu()"></i>
+              <i class="fa-bars"></i>
               <li><a href="">ABOUT</a></li>
               <li><a href="">MAKER PORTFOLIO</a></li>
               <li><a href="">CONTACT</a></li>
+              <i class="fa-solid fa-bars" on click="showMenu()"></i>
             </ul>
           </div>
         </nav>
@@ -26,9 +30,22 @@
         <div class="text-box">
           <h1>Hi, <br> I'm Grace.</h1>
           <p>If my brain were a spider, it would be wearing roller skates and each leg would be rolling in a different direction. I like internet security, sustainability, ventures that make the world better, hibachi cooking, figure skating, and music made of beeps and boops.</p>
-          <a href="">Chat with me</a>
+          <a href="" class="hero-btn">Chat with me</a>
         </div>
     </section>
+
+    <!-- -------------JavaScript for Toggle Menu----------------- -->
+    <script>
+
+      var navLinks = document.getElementById("navLinks")
+      function showMenu(){
+        navLinks.style.right = "0";
+      }
+      function hideMenu(){
+        navLinks.style.right = "-150px";
+      }
+
+    </script>
     
   </body>
  </html>
