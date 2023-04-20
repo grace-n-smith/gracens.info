@@ -13,7 +13,7 @@
     position: relative;
 }
 .header2{
-    min-height: 10vh;
+    min-height: 100vh;
     width: 100%;
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(81, 109, 218, 0.658)),url("img/bubbles\ banner2.png");
     background-position: center;
@@ -145,7 +145,15 @@ p{
     padding: 10px;
 }
 model-viewer {
-    width: 800px;
-    height: 600px;
+    width: 400px;
+    height: 400px;
     margin: 0, auto;
+}
+
+/* MAKERPORTFOLIO */
+.portfolio{
+    min-height: 100vh;
+    width: 100%;
+    background-color: azure;
+    background-size: cover;
 }
