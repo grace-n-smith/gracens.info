@@ -30,7 +30,17 @@
     </section>
 
     <section class="portfolio">
-        <model-viewer id="lenscap55mm" src="projects/55mmlenscap.gltf" camera-controls auto-rotate></model-viewer>
+        <model-viewer src="projects/55mmlenscap.gltf" ar ar-modes="webxr scene-viewer quick-look" camera-controls poster="poster.webp" shadow-intensity="1.32" auto-rotate environment-image="legacy" exposure="1.55">
+            <div class="progress-bar hide" slot="progress-bar">
+                <div class="update-bar"></div>
+            </div>
+            <button slot="ar-button" id="ar-button">
+                View in your space
+            </button>
+            <div id="ar-prompt">
+                <img src="https://modelviewer.dev/shared-assets/icons/hand.png">
+            </div>
+        </model-viewer>
         <div class="row">
             <div class=" portfolio-col">
                 
