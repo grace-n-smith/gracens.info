@@ -56,11 +56,13 @@
 
 <!-- -----SCRIPT FOR 55MMLENSCAP----- -->
     <script type="module">
-        const modelViewerParameters = document.querySelector("model-viewer#lenscap55mm");
-        let material = modelViewerParameters.model.materials[0];
-        material.pbrMetallicRoughness.setBaseColorFactor([0.4, 0.3, 0.2]);
-        material.pbrMetallicRoughness.setMetallicFactor(0.5);
-        material.pbrMetallicRoughness.setRoughnessFactor(0.5);
+        modelViewerParameters.addEventListener("load", (ev) => {
+            const modelViewerParameters = document.querySelector("model-viewer#lenscap55mm");
+            let material = modelViewerParameters.model.materials[0];
+            material.pbrMetallicRoughness.setBaseColorFactor([0.1, 0.7, 0.02]);
+            material.pbrMetallicRoughness.setMetallicFactor(0.5);
+            material.pbrMetallicRoughness.setRoughnessFactor(0.5);
+        });
     </script>
     
   </body>
