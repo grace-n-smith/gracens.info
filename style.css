@@ -70,11 +70,11 @@ nav .fa-solid{
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: left;
-    text-shadow: 4px 4px 8px #000000;
+    text-shadow: 2px 2px 8px #000000;
 }
 .text-box h1{
     font-size: 62px;
-    text-shadow: 4px 4px 8px #000000;
+    text-shadow: 2px 2px 8px #000000;
 }
 .text-box p{
     margin: 10px 0 40px;
@@ -166,14 +166,13 @@ model-viewer {
     margin-bottom: 30px;
     position: relative;
     overflow: hidden;
-    align-content: center;
     max-width: 600px;
 }
 .portfolio-col h1 h2 h3 h4{
     vertical-align: middle;
 }
 .row{
-    columns: 500px 2;
+    columns: 600px 2;
     column-gap: 3em;
 }
 .portfolio h1{
