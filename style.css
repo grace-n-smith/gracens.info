@@ -157,3 +157,17 @@ model-viewer {
     background-color: rgb(211, 220, 255);
     background-size: cover;
 }
+
+
+/* --------FOOTER----------- */
+.footer{
+    width: 100%;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.footer h4{
+    margin-bottom: 25px;
+    margin-top: 20px;
+    font-weight: 600;
+}
