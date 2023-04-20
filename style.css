@@ -15,7 +15,7 @@
 .header2{
     min-height: 100px;
     width: 100%;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(81, 109, 218, 0.658)),url("img/bubbles\ banner2.png");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(39, 52, 108, 0.658)),url("img/bubbles\ banner2.png");
     background-position: center;
     background-size: cover;
     position: relative;
