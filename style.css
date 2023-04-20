@@ -12,6 +12,14 @@
     background-size: cover;
     position: relative;
 }
+.header2{
+    min-height: 10vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(81, 109, 218, 0.658)),url("img/bubbles\ banner2.png");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
 
 nav{
     display: flex;
