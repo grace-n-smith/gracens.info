@@ -157,7 +157,6 @@ model-viewer {
     width: 100%;
     background-color: rgb(211, 220, 255);
     background-size: cover;
-    text-align: center;
     padding-top: 50px;
 }
 .portfolio-col{
