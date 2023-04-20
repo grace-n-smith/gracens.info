@@ -165,10 +165,10 @@ model-viewer {
     position: relative;
     overflow: hidden;
     align-content: center;
+    max-width: 500px;
 }
 .row{
-    width: 100%;
-    columns: 400px 2;
+    columns: 500px 2;
     column-gap: 3em;
 }
 
