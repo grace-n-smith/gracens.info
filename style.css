@@ -70,9 +70,11 @@ nav .fa-solid{
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: left;
+    text-shadow: 2px 2px 4px #000000;
 }
 .text-box h1{
     font-size: 62px;
+    text-shadow: 2px 2px 4px #000000;
 }
 .text-box p{
     margin: 10px 0 40px;
@@ -145,12 +147,12 @@ p{
     padding: 10px;
 }
 model-viewer {
-    width: 500px;
-    height: 500px;
-    margin: 30px, auto;
+    width: 600px;
+    height: 600px;
+    padding: 50px, auto;
 }
 
-/* MAKERPORTFOLIO */
+/* MAKER PORTFOLIO */
 .portfolio{
     width: 100%;
     background-color: rgb(211, 220, 255);
@@ -165,11 +167,14 @@ model-viewer {
     position: relative;
     overflow: hidden;
     align-content: center;
-    max-width: 500px;
+    max-width: 600px;
 }
 .row{
     columns: 500px 2;
     column-gap: 3em;
+}
+.portfolio h1{
+    padding-bottom: 30px;
 }
 
 /* --------FOOTER----------- */
