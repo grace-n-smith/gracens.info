@@ -162,13 +162,9 @@ model-viewer {
     flex-basis: 32%;
     border-radius: 10px;
     margin-bottom: 30px;
-    margin-left: 50px;
     position: relative;
     overflow: hidden;
-}
-.model-viewer{
-    align-self: center;
-    padding-left: 20%;
+    align-content: center;
 }
 .row{
     width: 100%;
