@@ -30,7 +30,7 @@
     </section>
 
     <section class="portfolio">
-        <model-viewer id="55mmlenscap" src="projects/55mmlenscap.gltf" camera-controls auto-rotate></model-viewer>
+        <model-viewer id="lenscap55mm" src="projects/55mmlenscap.gltf" camera-controls auto-rotate></model-viewer>
         <div class="row">
             <div class=" portfolio-col">
                 
@@ -56,7 +56,7 @@
 
 <!-- -----SCRIPT FOR 55MMLENSCAP----- -->
     <script type="module">
-        const modelViewerParameters = document.querySelector("model-viewer#55mmlenscap");
+        const modelViewerParameters = document.querySelector("model-viewer#lenscap55mm");
         let material = modelViewerParameters.model.materials[0];
         material.pbrMetallicRoughness.setBaseColorFactor([0.4, 0.3, 0.2]);
         material.pbrMetallicRoughness.setMetallicFactor(0.5);
