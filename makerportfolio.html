@@ -31,7 +31,7 @@
 
     <section class="portfolio">
         <div class="row">
-            <div class="portfolio-col">
+            <div class=" portfolio-col">
                 <model-viewer id="55mmlenscap" src="projects/55mmlenscap.gltf" camera-controls auto-rotate></model-viewer>
                 
             </div>
@@ -57,7 +57,9 @@
     <script>
         const modelViewerParameters = document.querySelector("model-viewer#55mmlenscap");
         let material = modelViewerParameters.model.materials[0];
-        material.pbrMetallicRoughness.setBaseColorFactor([0.7294, 0.5333, 0.0392]);
+        material.pbrMetallicRoughness.setBaseColorFactor([0.4, 0.3, 0.2]);
+        material.pbrMetallicRoughness.setMetallicFactor(0.5);
+        material.pbrMetallicRoughness.setRoughnessFactor(0.5);
     </script>
     
   </body>
