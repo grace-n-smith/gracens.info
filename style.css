@@ -157,6 +157,7 @@ model-viewer {
     background-size: cover;
     text-align: center;
     padding-top: 50px;
+    margin: auto;
 }
 .portfolio-col{
     flex-basis: 32%;
