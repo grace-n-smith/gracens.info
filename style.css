@@ -168,6 +168,8 @@ model-viewer {
 }
 .row{
     width: 100%;
+    columns: 400px 2;
+    column-gap: 3em;
 }
 
 /* --------FOOTER----------- */
