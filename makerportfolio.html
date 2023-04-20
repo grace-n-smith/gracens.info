@@ -2,12 +2,13 @@
  <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grace Nina Smith</title>
+    <title>Grace Nina Smith - Maker Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/0980f7281d.js" crossorigin="anonymous"></script>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.0.1/model-viewer.min.js"></script>
   </head>
 
   <body>
@@ -25,26 +26,21 @@
           </div>
           <i class="fa-solid fa-bars" onclick="showMenu()"></i>
         </nav>
-
-        <div class="text-box">
-          <h1>Hi, <br> I'm Grace.</h1>
-          <p>If my brain were a spider, it would be wearing roller skates and each leg would be rolling in a different direction. I like internet security, sustainability, ventures that make the world better, hibachi cooking, figure skating, and music made of beeps and boops.</p>
-          <a href="" class="hero-btn">Chat with me</a>
+        <div>
+            <model-viewer id="55mmlenscap" src="projects/55mmlenscap.gltf" camera-controls></model-viewer>
         </div>
+        
     </section>
 
-    <!-- -----MAKER PORTFOLIO----- -->
-    <section class="mini-portfolio">
-        <h1>Here's a few things I've worked on</h1>
-        <p> hi I'm a paragraph </p>
-
+    <section class="portfolio">
         <div class="row">
-          <div class="mini-port-col">
-            <img src="img/PROJECTIM">
-          </div>
+            <div class="portfolio-col">
+                
+                
+            </div>
         </div>
-
     </section>
+
 
 
     <!-- -------------JavaScript for Toggle Menu----------------- -->
@@ -59,7 +55,13 @@
       }
 
     </script>
+
+<!-- -----SCRIPT FOR 55MMLENSCAP----- -->
+    <!-- <script>
+        const modelViewerParameters = document.querySelector("model-viewer#55mmlenscap");
+        let material = modelViewerParameters.model.materials[0];
+        material.pbrMetallicRoughness.setBaseColorFactor([0.7294, 0.5333, 0.0392]);
+    </script> -->
     
   </body>
  </html>
-
