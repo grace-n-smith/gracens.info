@@ -147,7 +147,7 @@ p{
 model-viewer {
     width: 500px;
     height: 500px;
-    margin: 0, auto;
+    margin: 30px, auto;
 }
 
 /* MAKERPORTFOLIO */
@@ -157,6 +157,7 @@ model-viewer {
     background-size: cover;
     text-align: center;
     padding-top: 50px;
+    margin-left: 10%;
 }
 .portfolio-col{
     flex-basis: 32%;
