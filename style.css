@@ -167,6 +167,7 @@ model-viewer {
 }
 .model-viewer{
     align-self: center;
+    padding-left: 20%;
 }
 
 
