@@ -176,7 +176,7 @@ model-viewer {
 }
 .portfolio h1{
     padding-bottom: 30px;
-    text-align: center;
+    vertical-align: middle;
 }
 
 /* ----------SPLIT SCREEN PORTFOLIO-------------- */
