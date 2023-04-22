@@ -187,8 +187,9 @@ body{
     width: 50%;
 
 }
-.section-container.columns{
+.section-container.columns h1 h2 h3 h4 h5 p{
     vertical-align: middle;
+    text-align: center;
 }
 
 /* --------FOOTER----------- */
