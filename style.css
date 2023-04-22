@@ -196,7 +196,10 @@ body{
 .section-container .columns{
     flex: 0 0 auto;
     width: 50%;
-    
+
+}
+.section-container.columns.content{
+    padding: 40px 50px;
 }
 
 /* --------FOOTER----------- */
