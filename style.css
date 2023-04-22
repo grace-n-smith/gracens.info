@@ -167,7 +167,7 @@ model-viewer {
     position: relative;
     overflow: hidden;
     max-width: 600px;
-    margin: 10%;
+    margin: 100px;
 }
 .portfolio-col h1 h2 h3 h4{
     vertical-align: middle;
