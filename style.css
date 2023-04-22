@@ -158,26 +158,10 @@ model-viewer {
     background-color: rgb(211, 220, 255);
     background-size: cover;
     padding-top: 50px;
-    text-align: center;
-}
-.portfolio-col{
-    flex-basis: 32%;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    position: relative;
-    overflow: hidden;
-    max-width: 600px;
-    margin: 100px;
-}
-.portfolio-col h1 h2 h3 h4{
-    vertical-align: middle;
-}
-.row{
-    columns: 600px 2;
-    column-gap: 3em;
 }
 .portfolio h1{
     padding-bottom: 30px;
+    text-align: center;
 }
 
 /* ----------SPLIT SCREEN PORTFOLIO-------------- */
