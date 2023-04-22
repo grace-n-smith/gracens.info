@@ -199,8 +199,8 @@ body{
     width: 50%;
 
 }
-.section-container.columns.content{
-    padding: 40px 50px;
+.section-container.columns{
+    align-items: center;
 }
 
 /* --------FOOTER----------- */
