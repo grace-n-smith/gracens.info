@@ -100,6 +100,7 @@ nav .fa-solid{
 .page-title h1{
     text-align: center;
     background-color: rgb(211, 220, 255);
+    padding: 100px;
 }
 @media(max-width:700px){
     .text-box h1{
@@ -189,7 +190,7 @@ body{
 
 }
 .section-container.columns h1 h2 h3 h4 h5 p{
-    vertical-align: middle;
+    padding: 50px;
     text-align: center;
 }
 
