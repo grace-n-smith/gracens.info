@@ -162,7 +162,7 @@ model-viewer {
     width: 100%;
     background-color: rgb(211, 220, 255);
     background-size: cover;
-    padding-top: 50px;
+    margin: 2rem;
 }
 .portfolio h1{
     padding-bottom: 50px;
@@ -187,7 +187,6 @@ body{
 .section-container .columns{
     flex: 0 0 auto;
     width: 50%;
-    margin: 10%;
 
 }
 .section-container .columns h1 h2 h3 h4 h5 p{
@@ -206,4 +205,12 @@ body{
     margin-bottom: 25px;
     margin-top: 20px;
     font-weight: 600;
+}
+
+/* ----------ATTEMPTING CSS GRID------------ */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+    gap: 1rem
 }
