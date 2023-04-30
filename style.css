@@ -156,7 +156,7 @@ h1{
     background-size: cover;
 }
 .grid {
-    margin-left: 2rem;
+    margin-left: 3rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     /* grid-template-rows: repeat(auto-fill, 35%); */
