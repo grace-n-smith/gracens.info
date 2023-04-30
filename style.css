@@ -188,7 +188,7 @@ body{
     justify-items: center;
 }
 .grid model-viewer{
-    object-fit: fill;
+    object-fit: cover;
     max-width: 100%;
     flex: 1;
     min-height: 200px;
