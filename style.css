@@ -162,7 +162,6 @@ model-viewer {
     width: 100%;
     background-color: rgb(211, 220, 255);
     background-size: cover;
-    margin: 2rem;
 }
 .portfolio h1{
     padding-bottom: 50px;
@@ -209,8 +208,8 @@ body{
 
 /* ----------ATTEMPTING CSS GRID------------ */
 .grid {
+    margin: 2rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-
     gap: 1rem
 }
