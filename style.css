@@ -100,7 +100,7 @@ nav .fa-solid{
 .page-title h1{
     text-align: center;
     background-color: rgb(211, 220, 255);
-    padding: 100px;
+    padding: 50px;
 }
 @media(max-width:700px){
     .text-box h1{
@@ -198,6 +198,10 @@ body{
 }
 .grid model-viewer{
     justify-items: center;
+    object-fit: scale-down;
+    max-width: 100%;
+    flex: 1;
+    min-height: 0;
 }
 .grid img{
     object-fit: scale-down;
