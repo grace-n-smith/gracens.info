@@ -133,28 +133,17 @@ nav .fa-solid{
 }
 
 
-/* -----MAKER PORTFOLIO HOME SNIPPET-----
-.mini-portfolio{
-    width: 80%;
-    margin: auto;
-    text-align: center;
-    padding-top: 100px;
-}
+
 h1{
     font-size: 36px;
     font-weight: 600;
 }
-p{
+/* p{
     color: #777;
     font-size: 14px;
     font-weight: 300;
     line-height: 22px;
     padding: 10px;
-}
-model-viewer {
-    width: 600px;
-    height: 600px;
-    padding: 50px, auto;
 } */
 
 /* MAKER PORTFOLIO */
@@ -188,7 +177,7 @@ body{
     font-weight: 600;
 }
 
-/* ----------ATTEMPTING CSS GRID------------ */
+/* ----------Portfolio CSS GRID------------ */
 .grid {
     margin: 2rem;
     display: grid;
