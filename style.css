@@ -190,7 +190,7 @@ body{
     object-fit: scale-down;
     max-width: 100%;
     flex: 1;
-    min-height: 0;
+    min-height: 200px;
 }
 .grid img{
     object-fit: scale-down;
