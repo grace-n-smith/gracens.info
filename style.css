@@ -214,3 +214,6 @@ body{
     gap: 1rem;
     align-items: center;
 }
+.grid model-viewer{
+    justify-items: center;
+}
