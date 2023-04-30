@@ -166,9 +166,9 @@ h1{
 }
 .grid model-viewer{
     object-fit: cover;
-    max-width: 100%;
+    max-width: 600px;
     flex: 1;
-    min-height: 600px;
+    max-height: 600px;
 }
 .grid img{
     object-fit: scale-down;
