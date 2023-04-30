@@ -155,32 +155,6 @@ h1{
     background-color: rgb(211, 220, 255);
     background-size: cover;
 }
-.portfolio h1{
-    /* padding-bottom: 50px; */
-    text-align: center;
-}
-
-/* ----------SPLIT SCREEN PORTFOLIO-------------- */
-
-body{
-    overflow-x: hidden;
-}
-
-
-/* --------FOOTER----------- */
-.footer{
-    width: 100%;
-    text-align: center;
-    padding: 30px 0;
-}
-
-.footer h4{
-    margin-bottom: 25px;
-    margin-top: 20px;
-    font-weight: 600;
-}
-
-/* ----------Portfolio CSS GRID------------ */
 .grid {
     margin: 2rem;
     display: grid;
@@ -229,4 +203,18 @@ body{
 }
 .nav-portfolio ul li:hover::after{
     width: 100%;
+}
+
+
+/* --------FOOTER----------- */
+.footer{
+    width: 100%;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.footer h4{
+    margin-bottom: 25px;
+    margin-top: 20px;
+    font-weight: 600;
 }
