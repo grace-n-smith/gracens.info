@@ -182,11 +182,12 @@ body{
     margin: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    grid-template-rows: 25%;
+    gap: 3rem;
     align-items: center;
+    justify-items: center;
 }
 .grid model-viewer{
-    justify-items: center;
     object-fit: fill;
     max-width: 100%;
     flex: 1;
