@@ -182,7 +182,7 @@ body{
     margin: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 25%;
+    grid-template-rows: repeat(auto-fill, 35%);
     gap: 3rem;
     align-items: center;
     justify-items: center;
