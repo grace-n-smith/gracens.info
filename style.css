@@ -199,3 +199,9 @@ body{
 .grid model-viewer{
     justify-items: center;
 }
+.grid img{
+    object-fit: scale-down;
+    max-width: 100%;
+    flex: 1;
+    min-height: 0;
+}
