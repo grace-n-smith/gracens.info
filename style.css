@@ -199,7 +199,31 @@ body{
     flex: 1;
     min-height: 0;
 }
-.portfolio .nav-links{
+.nav-portfolio{
     flex: 1;
     text-align: center;
+}
+.nav-portfolio ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
+}
+.nav-portfolio ul li a{
+    color: #000000;
+    text-decoration: none;
+    font-size: 13px;
+    
+}
+.nav-portfolio ul li::after{
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #5A4AE3;
+    display: block;
+    margin: auto;
+    transition: 0.25s;
+}
+.nav-portfolio ul li:hover::after{
+    width: 100%;
 }
