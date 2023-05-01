@@ -212,8 +212,7 @@ h1{
     flex-wrap: wrap;
     gap: 10px;
     height: 100vh;
-    margin-left: 4em;
-    margin-right: 4em;
+    margin: 4em;
 }
 
 .image-gallery > li {
