@@ -207,11 +207,18 @@ h1{
 }
 
 /* ---------fashion portfolio gallery---------- */
+.image-gallery{
+    margin: 5%;
+}
 .image-gallery .column {
     flex-wrap: flex;
     flex-direction: column;
     gap: 10px;
     justify-content: center;
+}
+
+.image-gallery .column ul{
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .image-item img {
