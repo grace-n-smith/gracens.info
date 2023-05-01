@@ -209,6 +209,8 @@ h1{
 /* ---------fashion portfolio gallery---------- */
 .image-gallery{
     margin: 5%;
+    background-color: rgb(211, 220, 255);
+    background-size: cover;
 }
 .image-gallery .column {
     flex-wrap: flex;
@@ -218,8 +220,7 @@ h1{
 }
 
 .image-gallery .column ul{
-    grid-template-columns: 1fr 1fr 1fr;
-}
+    columns: 3;
 
 .image-item img {
     width: 100%;
