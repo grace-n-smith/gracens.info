@@ -211,12 +211,16 @@ h1{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    height: 100vh;
+    margin-left: 4em;
+    margin-right: 4em;
 }
 
 .image-gallery > li {
     height: 300px;
     cursor: pointer;
     position: relative;
+    flex: 1 1 auto;
 }
 
 .image-gallery li img {
@@ -228,7 +232,7 @@ h1{
 }
 .image-gallery::after {
     content:"";
-    flex-basis: 350px;
+    flex-grow: 999;
 }
 .image-gallery li:hover .overlay {
     transform: scale(1);
@@ -241,7 +245,7 @@ h1{
     top: 0;
     left: 0;
     transform: scale(0);
-    transition: all 0.2s 0.1s ease-in-out;
+    /* transition: all 0.2s 0.1s ease-in-out; */
     color: #fff;
     border-radius: 5px;
     /* center overlay text */
