@@ -2,17 +2,18 @@
  <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grace Nina Smith</title>
+    <title>Grace Nina Smith - Contact</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/0980f7281d.js" crossorigin="anonymous"></script>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.0.1/model-viewer.min.js"></script>
   </head>
 
   <body>
 
-    <section class="header">
+    <section class="header2">
         <nav>
           <!-- <a href = "index.html"><img src="img/Grace Smith-logos/Grace Smith-logos_black.png"</a> -->
           <div class="nav-links" id="navLinks">
@@ -25,13 +26,26 @@
             </ul>
           </div>
           <i class="fa-solid fa-bars" onclick="showMenu()"></i>
-        </nav>
+        </nav>                                       
+        
+    </section>
 
-        <div class="text-box">
-          <h1>Hi, <br> I'm Grace.</h1>
-          <p>If my brain were a spider, it would be wearing roller skates and each leg would be rolling in a different direction. I like internet security, sustainability, ventures that make the world better, hibachi cooking, figure skating, and music made of beeps and boops.</p>
-          <a href="contact.html" class="hero-btn">Chat with me</a>
-        </div>
+    <!-- PORTFOLIO -->
+    <section class="page-title">
+      <h1>About Me</h1>
+      <hr>
+    </section>
+
+
+    <section class="portfolio">
+      <div class="profilepic">
+        
+      </div>
+
+      <div class="biotext">
+        <p>gnsmith [at] mit [dot] edu</p>
+        <p>will add more contact details soon</p>
+      </div>
     </section>
 
     <!-- FOOTER -->
@@ -39,6 +53,7 @@
       <p>Updates to this site coming soon, as I learn more webdev things!</p>
       <p> &copy Grace Smith 2023 </p>
     </section>
+
 
 
     <!-- -------------JavaScript for Toggle Menu----------------- -->
@@ -53,7 +68,16 @@
       }
 
     </script>
+
+<!-- -----SCRIPT FOR 55MMLENSCAP----- -->
+    <!-- <script type="module">
+        const modelViewerParameters = document.querySelector("model-viewer#lenscap55mm");
+        const material = model.materials[0];
+        material.pbrMetallicRoughness.setBaseColorFactor([0.1, 0.7, 0.02]);
+        material.pbrMetallicRoughness.setMetallicFactor(0.5);
+        material.pbrMetallicRoughness.setRoughnessFactor(0.5);
+        
+    </script> -->
     
   </body>
  </html>
-
