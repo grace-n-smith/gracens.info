@@ -241,6 +241,12 @@ h1{
 .tab{
     margin-left: 20px;
 }
+.imgr{
+    float: right;
+}
+.p50{
+    width: 50%;
+}
 
 /* --------FOOTER----------- */
 .footer{
