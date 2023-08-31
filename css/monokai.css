@@ -143,3 +143,7 @@ body .gist .pl-iu {
     background: #a6e22e;
     color: #272822;
 }
+
+body .gist .gist-meta {
+  display: none;
+}
