@@ -82,6 +82,14 @@
 
     </script>
 
+    <!-- for removing hosted by github-->
+    <script>
+      function onLoad() {
+          var elements = document.querySelectorAll(".gist > .gist-file > .gist-meta");
+          elements[0].parentElement.removeChild(elements[0]);
+      }
+    </script>
+
 <!-- -----SCRIPT FOR 55MMLENSCAP----- -->
     <!-- <script type="module">
         const modelViewerParameters = document.querySelector("model-viewer#lenscap55mm");
