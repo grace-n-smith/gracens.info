@@ -1,59 +1,491 @@
 <!DOCTYPE html>
- <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grace Nina Smith</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/0980f7281d.js" crossorigin="anonymous"></script>
-  </head>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grace — under construction</title>
+<meta name="description" content="Portfolio under construction.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; height: 100%; background: #02040d; overflow: hidden; }
+  body { -webkit-font-smoothing: antialiased; touch-action: none; }
+  canvas#gem { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
 
-  <body>
+  /* Static fallback when WebGL2 is unavailable */
+  .no-gl body {
+    background:
+      radial-gradient(ellipse at 38% 42%, #0d2a8a 0%, #061650 30%, #020722 65%, #01020a 100%);
+  }
+  .no-gl canvas#gem { display: none; }
 
-    <section class="header">
-        <nav>
-          <!-- <a href = "index.html"><img src="img/Grace Smith-logos/Grace Smith-logos_black.png"</a> -->
-          <div class="nav-links" id="navLinks">
-            <ul>
-              <i class="fa-solid fa-xmark" onclick="hideMenu()"></i>
-              <li><a href="index.html">HOME</a></li>
-              <li><a href="aboutme.html">ABOUT ME</a></li>
-              <li><a href="portfolioCAD.html">PORTFOLIO</a></li>
-              <li><a href="contact.html">CONTACT</a></li>
-            </ul>
-          </div>
-          <i class="fa-solid fa-bars" onclick="showMenu()"></i>
-        </nav>
+  .label {
+    position: fixed;
+    left: clamp(20px, 4vw, 52px);
+    bottom: clamp(20px, 4.5vh, 48px);
+    color: rgba(206, 219, 255, 0.86);
+    pointer-events: none;
+    user-select: none;
+  }
+  .label h1 {
+    font-family: 'Garamond', Georgia, serif;
+    font-style: normal; font-weight: 400;
+    font-size: clamp(30px, 3.6vw, 48px);
+    line-height: 1; margin: 0; letter-spacing: 0.005em;
+  }
+  .label p {
+    font-family: 'Roboto Mono', ui-monospace, monospace;
+    font-size: 16px; letter-spacing: 0.24em; text-transform: uppercase;
+    font-weight: 600;
+    margin: 0.9em 0 0; opacity: 0.55;
+  }
+  .hint {
+    position: fixed;
+    right: clamp(20px, 4vw, 52px);
+    bottom: clamp(20px, 4.5vh, 48px);
+    font-family: 'Roboto Mono', ui-monospace, monospace;
+    font-weight: 100;
+    font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(206, 219, 255, 0.45);
+    transition: opacity 2.5s ease;
+    pointer-events: none; user-select: none;
+  }
+  .hint.gone { opacity: 0; }
+  @media (max-width: 560px) { .hint { bottom: auto; top: clamp(20px, 4.5vh, 48px); } }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+</style>
+</head>
+<body>
+<canvas id="gem" aria-hidden="true"></canvas>
 
-        <div class="text-box">
-          <h1>Hi, <br> I'm Grace.</h1>
-          <p>I build things. I like systemic sustainability, additive manufacturing, internet security, ventures that make the world better, hibachi cooking, figure skating, and music made of beeps and boops.</p>
-          <a href="https://calendly.com/gracensmith/30min" class="hero-btn">Chat with me</a>
-        </div>
-    </section>
+<main class="label">
+  <h1>Grace Nina Smith</h1>
+  <p>R&D Engineer</p>
+  <p>---</p>
+  <p>portfolio still in the oven, please come back later!</p>
+  <ul class="sr-only" id="bio-sr"></ul>
+</main>
+<div class="hint" id="hint">move the light</div>
 
-    <!-- FOOTER -->
-    <section class="footer">
-      <p> Last updated 2/8/2024 </p>
-      <p> &copy Grace Smith 2024 </p>
-    </section>
+<script>
+(() => {
+'use strict';
 
+/* ───────────────────────── 1. Bio fragments ─────────────────────────
+   Edit these. A few at a time get etched into the stone as horizontal
+   "needles" that only catch the light when the cursor sweeps across them. */
+const BIO = [
+  'embedded systems',
+  'R&D',
+  'sensors and signals',
+  'a sensor can\'t hide from me',
+  'analog and digital',
+  'hardware',
+  'med device R&D @ MIT',
+  'algae',
+  'A2P10DLC',
+  'spinal cooling catheter',
+  'nephrostomy catheter occlusion detection',
+  'rapid protoype wrangling',
+  'chasing bugs in hardware, firmware, and software',
+  'data acquisition + analysis',
+  'hi :) I\'m Grace',
+];
 
-    <!-- -------------JavaScript for Toggle Menu----------------- -->
-    <script>
+/* ───────────────────────── 2. Tunables ───────────────────────────── */
+const CFG = {
+  maxDpr: 1.5,          // cap pixel ratio for phones/retina
+  lightEase: 4.0,       // higher = light follows cursor faster
+  tiltEase: 1.6,        // parallax easing (slower = heavier stone)
+  idleAfter: 5.0,       // seconds before the light starts drifting on its own
+  fragmentsShown: 3,
+  cycleSeconds: 26,     // how long a set of fragments lives if nobody finds it
+};
 
-      var navLinks = document.getElementById("navLinks")
-      function showMenu(){
-        navLinks.style.right = "0px";
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Screen-reader copy of the bio (the visual version is hidden in the shader)
+const sr = document.getElementById('bio-sr');
+BIO.forEach(t => { const li = document.createElement('li'); li.textContent = t; sr.appendChild(li); });
+
+const canvas = document.getElementById('gem');
+const gl = canvas.getContext('webgl2', { antialias: false, alpha: false, powerPreference: 'high-performance' });
+if (!gl) { document.documentElement.classList.add('no-gl'); return; }
+
+/* ───────────────────────── 3. Shaders ────────────────────────────── */
+const VERT = `#version 300 es
+void main() {
+  // one oversized triangle covers the screen; no vertex buffer needed
+  vec2 p = vec2((gl_VertexID << 1) & 2, gl_VertexID & 2);
+  gl_Position = vec4(p * 2.0 - 1.0, 0.0, 1.0);
+}`;
+
+const FRAG = `#version 300 es
+precision highp float;
+out vec4 outColor;
+
+uniform vec2  uRes;
+uniform float uTime;
+uniform vec2  uLight;    // eased cursor position, scene units (y up, screen height = 1)
+uniform vec2  uTilt;     // more heavily eased copy, drives parallax
+uniform sampler2D uText; // bio fragments mask
+uniform float uTextAmt;
+
+const float TAU = 6.28318530718;
+const float PI3 = 1.0471975512;   // 60 degrees
+const float BASE = 0.5235987756;  // lattice rotation: needles at 30, 90, 150 degrees
+
+// Hashes without sine (Dave Hoskins)
+float hash11(float p) { p = fract(p * .1031); p *= p + 33.33; p *= p + p; return fract(p); }
+vec4 hash42(vec2 p) {
+  vec4 p4 = fract(vec4(p.xyxy) * vec4(.1031, .1030, .0973, .1099));
+  p4 += dot(p4, p4.wzxy + 33.33);
+  return fract((p4.xxyz + p4.yzzw) * p4.zywx);
+}
+
+// Rotate p by -a: a direction at angle a maps onto +x
+vec2 toFrame(vec2 p, float a) { float c = cos(a), s = sin(a); return vec2(c*p.x + s*p.y, -s*p.x + c*p.y); }
+
+// Hexagonal "norm": its level sets are hexagons with edges at 0, 60 and 120 degrees
+float hexNorm(vec2 p) { p = abs(p); return max(p.y, dot(p, vec2(0.8660254, 0.5))); }
+
+// Kajiya-Kay: a thin cylinder with tangent T reflects into the plane perpendicular to T.
+// Brightness depends on how perpendicular the half-vector is to the needle.
+float kk(vec2 T, vec2 H, float shin) { float t = dot(T, H); return pow(max(1.0 - t*t, 0.0), shin); }
+
+vec3 palette(float x) { return 0.5 + 0.5 * cos(TAU * (x + vec3(0.0, 0.33, 0.67))); }
+
+const float LDEPTH[4] = float[4](0.15, 0.42, 0.70, 1.00);
+const float LSCALE[4] = float[4](0.62, 0.82, 1.00, 1.35);
+const float LBRIGHT[4] = float[4](0.40, 0.70, 1.00, 0.50);
+const float LBLUR[4] = float[4](1.4, 0.5, 0.0, 2.6);    // in pixels: crude depth of field
+
+void main() {
+  vec2 fc = gl_FragCoord.xy;
+  float px = 1.0 / uRes.y;
+  vec2 p = (fc - 0.5 * uRes) * px;
+
+  // ── lighting geometry: point light hovering over the stone at the cursor
+  vec2 m = uLight;
+  vec2 dm = p - m;
+  float r = length(dm);
+  vec3 V = normalize(vec3(-p * 0.35, 1.0));       // eye a little above screen centre
+  vec3 L = normalize(vec3(-dm, 0.20));
+  vec2 H = normalize(L + V).xy;
+
+  // ── hexagonal growth zoning
+  vec2 hz = toFrame(p - vec2(-0.30, 0.05) + uTilt * 0.025, BASE - 0.5235987756);
+  float hn = hexNorm(hz);
+  float wob = 0.5 * sin(hn * 23.0 + 1.7) + 0.25 * sin(hn * 57.0);
+  float zone = 0.5 + 0.5 * sin(hn * 11.0 + wob);
+  float density = mix(0.12, 1.0, smoothstep(0.2, 0.85, zone));
+
+  // ── sapphire body
+  vec3 col = vec3(0.0005, 0.0013, 0.0085) * (0.55 + 0.9 * zone);
+  col += vec3(0.002, 0.007, 0.055) * exp(-r * 2.4);         // light scattered into the body
+  col += vec3(0.010, 0.025, 0.110) * exp(-r * r * 70.0);     // hotspot
+
+  // soft asterism rays: the six-rayed star, as a broad glow
+  for (int k = 0; k < 3; k++) {
+    vec2 T = vec2(cos(BASE + float(k) * PI3), sin(BASE + float(k) * PI3));
+    float d = abs(dot(dm, T));
+    col += vec3(0.08, 0.15, 0.55) * 0.05 * exp(-d / (0.003 + 0.03 * r)) * exp(-r * 2.0);
+  }
+
+  // growth lines: planar boundaries, so they glint too (tangent from the gradient)
+  {
+    float f = hn * 19.0 + 0.4 * wob;
+    float d = abs(fract(f) - 0.5) / max(fwidth(f), 1e-5);
+    float keep = step(0.55, hash11(floor(f) + 3.0));
+    vec2 g = vec2(dFdx(hn), dFdy(hn));
+    vec2 T = normalize(vec2(-g.y, g.x) + 1e-6);
+    float line = (1.0 - smoothstep(0.0, 1.6, d)) * keep;
+    col += vec3(0.35, 0.5, 1.0) * line * (0.006 + 0.45 * kk(T, H, 300.0));
+  }
+
+  // ── rutile silk: 4 depth layers x 3 orientations of hashed needle segments
+  vec3 silk = vec3(0.0);
+  for (int l = 0; l < 4; l++) {
+    float fl = float(l);
+    vec2 pl = p + uTilt * LDEPTH[l] * 0.075;
+    float blur = LBLUR[l] * px;
+    for (int k = 0; k < 3; k++) {
+      float ang = BASE + float(k) * PI3;
+      vec2 q = toFrame(pl, ang) + vec2(fl * 7.31 + float(k) * 3.17, fl * 1.93);
+      vec2 cs = vec2(0.17, 0.017) * LSCALE[l];
+      vec2 id = floor(q / cs);
+      float yn = fract(q.y / cs.y) < 0.5 ? -1.0 : 1.0;
+      for (int j = 0; j < 2; j++) {
+        for (int i = -1; i <= 1; i++) {
+          vec2 cid = id + vec2(float(i), j == 0 ? 0.0 : yn);
+          vec2 key = cid + vec2(float(k) * 113.0 + fl * 57.0, fl * 311.0);
+          vec4 a = hash42(key);
+          if (a.x > 0.44 * density) continue;
+          float halfL = cs.x * mix(0.03, 1.0, a.y * a.y * a.y);   // mostly short, a few long
+          float cx = (cid.x + a.z) * cs.x;
+          float dx = abs(q.x - cx);
+          if (dx > halfL + px) continue;
+          vec4 b = hash42(key + 71.3);
+          float cy = (cid.y + 0.2 + 0.6 * a.w) * cs.y;
+          float dy = abs(q.y - cy);
+          float w = px * mix(0.3, 1.15, b.x * b.x);
+          float s = sqrt(w * w + 0.3 * px * px + blur * blur);
+          float prof = (w / s) * exp(-0.5 * dy * dy / (s * s));
+          float glow = (w / s) * exp(-dy / (s * 2.2));
+          float taper = 1.0 - smoothstep(halfL * 0.5, halfL + px, dx);
+          float jit = (b.y - 0.5) * 0.045;                       // tiny misorientation = sparkle
+          vec2 T = vec2(cos(ang + jit), sin(ang + jit));
+          float t = dot(T, H);
+          float ct = max(1.0 - t * t, 0.0);
+          float spec = pow(ct, 1100.0);
+          float sheen = pow(ct, 45.0);
+          vec3 tint = palette(b.z + t * 3.0);                   // fake diffraction colour
+          vec3 c = mix(vec3(1.0), tint, 0.3 + 0.6 * b.w);
+          float lum = 0.025 + 0.12 * sheen + 3.0 * spec;
+          silk += c * taper * LBRIGHT[l] * (prof * lum + glow * spec * 0.25);
+        }
       }
-      function hideMenu(){
-        navLinks.style.right = "-150px";
-      }
+    }
+  }
+  col += silk * vec3(0.85, 0.92, 1.0);
 
-    </script>
-    
-  </body>
- </html>
+  // ── hidden bio: horizontal needles, a fourth orientation the crystal never grows
+  float tm = texture(uText, fc / uRes).r * uTextAmt;
+  if (tm > 0.003) {
+    float angT = 0.0;
+    vec2 q = p;
+    float sp = 2.4 * px;
+    float row = floor(q.y / sp);
+    float hr = hash11(row + 17.0);
+    float f = (fract(q.y / sp) - 0.5) * sp;
+    float line = exp(-0.5 * f * f / (0.5 * px * 0.5 * px));
+    float brk = smoothstep(0.08, 0.22, fract(q.x * 21.0 + hr * 7.0));
+    float jit = (hr - 0.5) * 0.05;
+    vec2 T = vec2(cos(angT + jit), sin(angT + jit));
+    float t = dot(T, H);
+    float spec = pow(max(1.0 - t * t, 0.0), 110.0);
+    vec3 c = mix(vec3(1.0), palette(hr + t * 2.5), 0.45);
+    col += c * tm * line * brk * spec * 1.6;
+  }
 
+  // ── tone map, vignette, gamma, grain
+  vec2 uv = fc / uRes;
+  col *= 0.35 + 0.65 * pow(16.0 * uv.x * uv.y * (1.0 - uv.x) * (1.0 - uv.y), 0.18);
+  col = 1.0 - exp(-col * 1.25);
+  col = pow(col, vec3(1.0 / 2.2));
+  col += (hash42(fc + fract(uTime) * 100.0).x - 0.5) / 255.0 * 1.5;
+  outColor = vec4(col, 1.0);
+}`;
+
+function compile(type, src) {
+  const s = gl.createShader(type);
+  gl.shaderSource(s, src); gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+  return s;
+}
+let prog;
+try {
+  prog = gl.createProgram();
+  gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
+  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+} catch (e) {
+  console.error(e);
+  document.documentElement.classList.add('no-gl');
+  return;
+}
+gl.useProgram(prog);
+gl.bindVertexArray(gl.createVertexArray());
+const U = {};
+['uRes', 'uTime', 'uLight', 'uTilt', 'uText', 'uTextAmt'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
+
+/* ───────────────────────── 4. Text mask ─────────────────────────────
+   Fragments are drawn into a hidden 2D canvas, uploaded as a texture,
+   and the shader fills the glyphs with light-sensitive needles. */
+const tc = document.createElement('canvas');
+const tctx = tc.getContext('2d');
+const tex = gl.createTexture();
+gl.activeTexture(gl.TEXTURE0);
+gl.bindTexture(gl.TEXTURE_2D, tex);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+gl.uniform1i(U.uText, 0);
+
+let frags = [];          // [{text, x0, x1, y}] in CSS pixels
+let deck = [];
+function nextFragment() {
+  if (!deck.length) deck = BIO.slice().sort(() => Math.random() - 0.5);
+  return deck.pop();
+}
+
+function layoutFragments() {
+  const W = innerWidth, Hh = innerHeight;
+  const size = Math.max(20, Math.min(52, Hh * 0.055, W * 0.06));
+  tctx.font = `100 ${size}px 'Roboto Mono', ui-monospace, monospace`;
+  frags = [];
+  // vertical slots, avoiding the label in the bottom-left
+  const slots = [0.16, 0.30, 0.44, 0.58, 0.70].sort(() => Math.random() - 0.5);
+  for (let n = 0; n < CFG.fragmentsShown; n++) {
+    const text = nextFragment();
+    // shrink any fragment that wouldn't fit on a narrow screen
+    let fs = size;
+    tctx.font = `100 ${fs}px 'Roboto Mono', ui-monospace, monospace`;
+    let tw = tctx.measureText(text).width;
+    if (tw > W * 0.88) { fs = fs * (W * 0.88) / tw; tw = W * 0.88; }
+    const y = slots[n] * Hh + (Math.random() - 0.5) * Hh * 0.04;
+    const x0 = W * 0.06 + Math.random() * Math.max(0, W * 0.88 - tw);
+    frags.push({ text, x0, x1: x0 + tw, y, size: fs });
+  }
+}
+
+function drawTextMask() {
+  const scale = 0.5;
+  tc.width = Math.max(2, Math.round(innerWidth * scale));
+  tc.height = Math.max(2, Math.round(innerHeight * scale));
+  tctx.setTransform(scale, 0, 0, scale, 0, 0);
+  tctx.fillStyle = '#000'; tctx.fillRect(0, 0, innerWidth, innerHeight);
+  tctx.fillStyle = '#fff'; tctx.strokeStyle = '#fff'; tctx.lineWidth = 1.5;
+  tctx.textBaseline = 'middle';
+  for (const f of frags) {
+    tctx.font = `300 ${f.size}px 'Roboto Mono', ui-monospace, monospace`;
+    tctx.fillText(f.text, f.x0, f.y);
+    tctx.strokeText(f.text, f.x0, f.y);
+  }
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tc);
+}
+
+/* ───────────────────────── 5. Sizing ─────────────────────────────── */
+let renderScale = 1.0;
+function resize() {
+  const dpr = Math.min(devicePixelRatio || 1, CFG.maxDpr) * renderScale;
+  canvas.width = Math.round(innerWidth * dpr);
+  canvas.height = Math.round(innerHeight * dpr);
+  gl.viewport(0, 0, canvas.width, canvas.height);
+  gl.uniform2f(U.uRes, canvas.width, canvas.height);
+  drawTextMask();
+}
+addEventListener('resize', () => { layoutFragments(); resize(); });
+
+/* ───────────────────────── 6. Input ────────────────────────────────
+   Scene units: origin at screen center, y up, screen height = 1. */
+const toScene = (x, y) => [(x - innerWidth / 2) / innerHeight, (innerHeight / 2 - y) / innerHeight];
+const light = [0.18, 0.1], tilt = [0, 0];
+let target = [0.18, 0.1];
+let lastInput = -1e9;
+const hint = document.getElementById('hint');
+
+addEventListener('pointermove', e => {
+  target = toScene(e.clientX, e.clientY);
+  lastInput = performance.now() / 1000;
+  hint.classList.add('gone');
+}, { passive: true });
+addEventListener('pointerdown', e => {
+  target = toScene(e.clientX, e.clientY);
+  lastInput = performance.now() / 1000;
+}, { passive: true });
+
+// Phones: tilting the device tilts the stone. (iOS needs a permission tap;
+// sandboxed previews may block this entirely; it works on a normal site.)
+function onOrient(e) {
+  if (e.beta == null) return;
+  const gx = Math.max(-1, Math.min(1, (e.gamma || 0) / 35));
+  const gy = Math.max(-1, Math.min(1, ((e.beta || 0) - 40) / 35));
+  target = [gx * 0.5 * innerWidth / innerHeight, -gy * 0.4];
+  lastInput = performance.now() / 1000;
+}
+if (typeof DeviceOrientationEvent !== 'undefined') {
+  if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+    addEventListener('click', () => {
+      DeviceOrientationEvent.requestPermission()
+        .then(s => { if (s === 'granted') addEventListener('deviceorientation', onOrient); })
+        .catch(() => {});
+    }, { once: true });
+  } else {
+    addEventListener('deviceorientation', onOrient);
+  }
+}
+
+/* ───────────────────────── 7. Fragment life-cycle ────────────────── */
+let textAmt = 0, phase = 'in', phaseT = 0, cycleT = 0, seenFor = 0, seen = false;
+function updateText(dt) {
+  phaseT += dt;
+  if (phase === 'in') { textAmt = Math.min(1, phaseT / 2.5); if (textAmt >= 1) { phase = 'hold'; phaseT = 0; } }
+  else if (phase === 'hold') {
+    // "found" = the light has swept across a fragment's column for a moment
+    const [lx] = light;
+    const cssX = lx * innerHeight + innerWidth / 2;
+    if (frags.some(f => cssX > f.x0 && cssX < f.x1)) seenFor += dt;
+    if (seenFor > 2.0) seen = true;
+    const limit = seen ? Math.min(CFG.cycleSeconds, 9) : CFG.cycleSeconds;
+    if (phaseT > limit) { phase = 'out'; phaseT = 0; }
+  } else if (phase === 'out') {
+    textAmt = Math.max(0, 1 - phaseT / 1.8);
+    if (textAmt <= 0) { layoutFragments(); drawTextMask(); phase = 'in'; phaseT = 0; seen = false; seenFor = 0; }
+  }
+}
+
+/* ───────────────────────── 8. Loop ───────────────────────────────── */
+let running = true, last = performance.now() / 1000, t0 = last;
+let slowFrames = 0, frameCount = 0;
+
+function frame() {
+  if (!running) return;
+  const now = performance.now() / 1000;
+  const dt = Math.min(0.1, now - last); last = now;
+  const t = now - t0;
+
+  // idle drift: a slow Lissajous wander so the stone is never static
+  if (!reduceMotion && now - lastInput > CFG.idleAfter) {
+    const a = innerWidth / innerHeight;
+    target = [0.38 * a * Math.sin(t * 0.11), 0.24 * Math.sin(t * 0.083 + 1.1)];
+  }
+  const kL = 1 - Math.exp(-dt * CFG.lightEase), kT = 1 - Math.exp(-dt * CFG.tiltEase);
+  for (let i = 0; i < 2; i++) { light[i] += (target[i] - light[i]) * kL; tilt[i] += (target[i] - tilt[i]) * kT; }
+
+  updateText(dt);
+
+  gl.uniform1f(U.uTime, t);
+  gl.uniform2f(U.uLight, light[0], light[1]);
+  gl.uniform2f(U.uTilt, tilt[0], tilt[1]);
+  gl.uniform1f(U.uTextAmt, textAmt * textAmt * (3 - 2 * textAmt));
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+  // adaptive resolution: if we're consistently slow, render fewer pixels
+  frameCount++;
+  if (dt > 1 / 40) slowFrames++;
+  if (frameCount === 90) {
+    if (slowFrames > 45 && renderScale > 0.55) { renderScale *= 0.8; resize(); }
+    frameCount = 0; slowFrames = 0;
+  }
+  requestAnimationFrame(frame);
+}
+
+document.addEventListener('visibilitychange', () => {
+  running = !document.hidden;
+  if (running) { last = performance.now() / 1000; requestAnimationFrame(frame); }
+});
+
+// Wait for the mono font so the mask uses it, but don't wait forever.
+Promise.race([
+  document.fonts ? document.fonts.load("100 40px 'Roboto Mono'") : Promise.resolve(),
+  new Promise(r => setTimeout(r, 1200)),
+]).catch(() => {}).finally(() => {
+  layoutFragments();
+  resize();
+  requestAnimationFrame(frame);
+});
+
+// For the curious.
+console.log('%c◇ silk: rutile needles at 30°, 90°, 150° · bio: needles at 0°', 'color:#8fb0ff');
+})();
+</script>
+</body>
+</html>
