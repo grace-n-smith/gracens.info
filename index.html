@@ -92,7 +92,7 @@ const BIO = [
   'mechatronics',
   'spinal cooling catheter',
   'nephrostomy catheter occlusion detection',
-  'rapid protoype wrangling',
+  'rapid prototype wrangling',
   'chasing bugs',
   'squashing bugs',
   'data acquisition + analysis',
@@ -137,6 +137,8 @@ uniform vec2  uLight;    // eased cursor position, scene units (y up, screen hei
 uniform vec2  uTilt;     // more heavily eased copy, drives parallax
 uniform sampler2D uText; // bio fragments mask
 uniform float uTextAmt;
+uniform float uTextShin;   // lower = wider reveal band (used on small screens)
+uniform float uTextSolid;  // 0 = pure hatching, 1 = solid glyphs
 
 const float TAU = 6.28318530718;
 const float PI3 = 1.0471975512;   // 60 degrees
@@ -270,9 +272,10 @@ void main() {
     float jit = (hr - 0.5) * 0.05;
     vec2 T = vec2(cos(angT + jit), sin(angT + jit));
     float t = dot(T, H);
-    float spec = pow(max(1.0 - t * t, 0.0), 110.0);
+    float spec = pow(max(1.0 - t * t, 0.0), uTextShin);
     vec3 c = mix(vec3(1.0), palette(hr + t * 2.5), 0.45);
-    col += c * tm * line * brk * spec * 1.6;
+    float fill = mix(line * brk, 1.0, uTextSolid);   // keep glyph cores legible
+    col += c * tm * fill * spec * 1.6;
   }
 
   // ── tone map, vignette, gamma, grain
@@ -305,7 +308,7 @@ try {
 gl.useProgram(prog);
 gl.bindVertexArray(gl.createVertexArray());
 const U = {};
-['uRes', 'uTime', 'uLight', 'uTilt', 'uText', 'uTextAmt'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
+['uRes', 'uTime', 'uLight', 'uTilt', 'uText', 'uTextAmt', 'uTextShin', 'uTextSolid'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
 
 /* ───────────────────────── 4. Text mask ─────────────────────────────
    Fragments are drawn into a hidden 2D canvas, uploaded as a texture,
@@ -328,38 +331,68 @@ function nextFragment() {
   return deck.pop();
 }
 
+const MIN_FS = 19;   // CSS px; below this the needle hatching stops reading as letters
+function wrap(text, fs, maxW, measure) {
+  const words = text.split(' '), out = [];
+  let cur = '';
+  for (const w of words) {
+    const tryLine = cur ? cur + ' ' + w : w;
+    if (cur && measure(tryLine, fs) > maxW) { out.push(cur); cur = w; } else cur = tryLine;
+  }
+  if (cur) out.push(cur);
+  return out;
+}
+
 function layoutFragments() {
   const W = innerWidth, Hh = innerHeight;
   const size = Math.max(20, Math.min(52, Hh * 0.055, W * 0.06));
   tctx.font = `100 ${size}px 'Roboto Mono', ui-monospace, monospace`;
   frags = [];
   // vertical slots, avoiding the label in the bottom-left
-  const slots = [0.16, 0.30, 0.44, 0.58, 0.70].sort(() => Math.random() - 0.5);
+
   for (let n = 0; n < CFG.fragmentsShown; n++) {
     const text = nextFragment();
-    // shrink any fragment that wouldn't fit on a narrow screen
+    // Fit to the screen: shrink first, but never below MIN_FS; past that, wrap onto more lines.
+    const maxW = W * 0.88;
     let fs = size;
-    tctx.font = `100 ${fs}px 'Roboto Mono', ui-monospace, monospace`;
-    let tw = tctx.measureText(text).width;
-    if (tw > W * 0.88) { fs = fs * (W * 0.88) / tw; tw = W * 0.88; }
-    const y = slots[n] * Hh + (Math.random() - 0.5) * Hh * 0.04;
-    const x0 = W * 0.06 + Math.random() * Math.max(0, W * 0.88 - tw);
-    frags.push({ text, x0, x1: x0 + tw, y, size: fs });
+    const measure = (t, f) => { tctx.font = `300 ${f}px 'Roboto Mono', ui-monospace, monospace`; return tctx.measureText(t).width; };
+    let lines = [text];
+    let tw = measure(text, fs);
+    if (tw > maxW) {
+      fs = Math.max(MIN_FS, fs * maxW / tw);
+      lines = wrap(text, fs, maxW, measure);
+      tw = Math.max(...lines.map(l => measure(l, fs)));
+      if (tw > maxW) { fs *= maxW / tw; tw = maxW; }   // a single very long word
+    }
+    // anywhere on screen, label included; just don't stack fragments on each other
+    const h = lines.length * fs * 1.3;
+    let y = 0;
+    for (let tries = 0; tries < 40; tries++) {
+      y = Hh * 0.06 + h / 2 + Math.random() * (Hh * 0.88 - h);
+      if (frags.every(o => Math.abs(o.y - y) > (o.h + h) / 2 + fs * 0.8)) break;
+    }
+    const x0 = W * 0.06 + Math.random() * Math.max(0, maxW - tw);
+    frags.push({ text, lines, x0, x1: x0 + tw, y, h, size: fs });
   }
 }
 
 function drawTextMask() {
-  const scale = 0.5;
+  // Match the render resolution: at half-res, small glyphs blur into mush.
+  const scale = Math.min(devicePixelRatio || 1, CFG.maxDpr);
   tc.width = Math.max(2, Math.round(innerWidth * scale));
   tc.height = Math.max(2, Math.round(innerHeight * scale));
   tctx.setTransform(scale, 0, 0, scale, 0, 0);
   tctx.fillStyle = '#000'; tctx.fillRect(0, 0, innerWidth, innerHeight);
-  tctx.fillStyle = '#fff'; tctx.strokeStyle = '#fff'; tctx.lineWidth = 1.5;
+  tctx.fillStyle = '#fff'; tctx.strokeStyle = '#fff'; tctx.lineWidth = 1.0;
   tctx.textBaseline = 'middle';
   for (const f of frags) {
     tctx.font = `300 ${f.size}px 'Roboto Mono', ui-monospace, monospace`;
-    tctx.fillText(f.text, f.x0, f.y);
-    tctx.strokeText(f.text, f.x0, f.y);
+    const lh = f.size * 1.3;
+    f.lines.forEach((ln, i) => {
+      const ly = f.y + (i - (f.lines.length - 1) / 2) * lh;
+      tctx.fillText(ln, f.x0, ly);
+      tctx.strokeText(ln, f.x0, ly);
+    });
   }
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tc);
@@ -373,6 +406,9 @@ function resize() {
   canvas.height = Math.round(innerHeight * dpr);
   gl.viewport(0, 0, canvas.width, canvas.height);
   gl.uniform2f(U.uRes, canvas.width, canvas.height);
+  const small = innerWidth < 700;
+  gl.uniform1f(U.uTextShin, small ? 55.0 : 110.0);   // wider reveal band on phones
+  gl.uniform1f(U.uTextSolid, 0.0);   // pure broken hatching; raise toward 1 for solid glyphs
   drawTextMask();
 }
 addEventListener('resize', () => { layoutFragments(); resize(); });
