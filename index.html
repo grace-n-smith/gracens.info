@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="utf-8">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://graceninasmith.com/">
 <meta property="og:title" content="Grace Nina Smith">
@@ -10,9 +11,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Rutile needles in sapphire, asterism.">
 <meta name="twitter:card" content="summary_large_image">
-<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grace — under construction</title>
+<title>GNS — under construction</title>
 <meta name="description" content="Portfolio under construction.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,19 +49,29 @@
     font-weight: 600;
     margin: 0.9em 0 0; opacity: 0.55;
   }
-  .hint {
-    position: fixed;
+  .social {
+    position: fixed; z-index: 2;
     right: clamp(20px, 4vw, 52px);
     bottom: clamp(20px, 4.5vh, 48px);
+    display: grid; place-items: center;
+    width: 34px; height: 34px; box-sizing: border-box;
+    border: 1px solid rgba(206, 219, 255, 0.35); border-radius: 7px;
     font-family: 'Roboto Mono', ui-monospace, monospace;
-    font-weight: 100;
-    font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(206, 219, 255, 0.45);
-    transition: opacity 2.5s ease;
-    pointer-events: none; user-select: none;
+    font-size: 14px; font-weight: 500; letter-spacing: 0.02em;
+    color: rgba(206, 219, 255, 0.6);
+    text-decoration: none;
+    transition: color .4s ease, border-color .4s ease, box-shadow .4s ease;
   }
-  .hint.gone { opacity: 0; }
-  @media (max-width: 560px) { .hint { bottom: auto; top: clamp(20px, 4.5vh, 48px); } }
+  .social:hover, .social:focus-visible {
+    color: rgba(235, 242, 255, 0.95);
+    border-color: rgba(206, 219, 255, 0.75);
+    box-shadow: 0 0 18px rgba(120, 160, 255, 0.35);
+    outline: none;
+  }
+  @media (max-width: 560px) {
+    .label p { font-size: 11px; letter-spacing: 0.18em; }
+    .label { right: 74px; }   /* leave room for the LinkedIn link */
+  }
   .sr-only {
     position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
     overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
@@ -74,11 +84,12 @@
 <main class="label">
   <h1>Grace Nina Smith</h1>
   <p>R&D Engineer</p>
-  <p>---</p>
-  <p>portfolio still in the oven, please come back later!</p>
+  <p>- - - - - - -</p>
+  <p>portfolio still in the oven---starting to smell good though...</p>
   <ul class="sr-only" id="bio-sr"></ul>
 </main>
-<div class="hint" id="hint">move the light</div>
+<!-- Replace YOUR-HANDLE with your LinkedIn profile slug -->
+<a class="social" href="https://www.linkedin.com/in/grace-n-smith/" target="_blank" rel="noopener me" aria-label="Grace Nina Smith on LinkedIn">in</a>
 
 <script>
 (() => {
@@ -90,13 +101,23 @@
 const BIO = [
   'embedded systems',
   'R&D',
+  'LLM emoji bans',
+  'keychain e-reader',
+  'project lapis',
+  '\"we stan a connector queen\"',
   'sensors and signals',
   '@_@',
   'analog and digital',
   'hardware',
   'med device R&D @ MIT',
   'algae',
+  'thermal modeling',
   'A2P10DLC',
+  'mixed-signal PCB',
+  'experiment!',
+  'tiramisu',
+  'mech-CAD + ECAD',
+  'tiny things',
   'mechE @ MIT',
   'mechatronics',
   'spinal cooling catheter',
@@ -104,6 +125,8 @@ const BIO = [
   'rapid prototype wrangling',
   'chasing bugs',
   'squashing bugs',
+  'counting bugs',
+  'sensor detective >:)',
   'data acquisition + analysis',
   'hi :) I\'m Grace',
 ];
@@ -354,10 +377,15 @@ function wrap(text, fs, maxW, measure) {
 
 function layoutFragments() {
   const W = innerWidth, Hh = innerHeight;
-  const size = Math.max(20, Math.min(52, Hh * 0.055, W * 0.06));
+  const size = Math.max(20, Math.min(52, Hh * 0.055, W * 0.05));
   tctx.font = `100 ${size}px 'Roboto Mono', ui-monospace, monospace`;
   frags = [];
-  // vertical slots, avoiding the label in the bottom-left
+  // On phones the label takes up a real share of the screen, so fragments stay above it.
+  // On wider screens they can land anywhere.
+  const small = W < 700;
+  const labelTop = document.querySelector('.label').getBoundingClientRect().top;
+  const yTop = Hh * 0.06;
+  const yBot = small ? Math.min(Hh * 0.94, labelTop - 12) : Hh * 0.94;
 
   for (let n = 0; n < CFG.fragmentsShown; n++) {
     const text = nextFragment();
@@ -373,11 +401,11 @@ function layoutFragments() {
       tw = Math.max(...lines.map(l => measure(l, fs)));
       if (tw > maxW) { fs *= maxW / tw; tw = maxW; }   // a single very long word
     }
-    // anywhere on screen, label included; just don't stack fragments on each other
+    // random height within [yTop, yBot]; just don't stack fragments on each other
     const h = lines.length * fs * 1.3;
     let y = 0;
     for (let tries = 0; tries < 40; tries++) {
-      y = Hh * 0.06 + h / 2 + Math.random() * (Hh * 0.88 - h);
+      y = yTop + h / 2 + Math.random() * Math.max(0, yBot - yTop - h);
       if (frags.every(o => Math.abs(o.y - y) > (o.h + h) / 2 + fs * 0.8)) break;
     }
     const x0 = W * 0.06 + Math.random() * Math.max(0, maxW - tw);
@@ -428,12 +456,10 @@ const toScene = (x, y) => [(x - innerWidth / 2) / innerHeight, (innerHeight / 2 
 const light = [0.18, 0.1], tilt = [0, 0];
 let target = [0.18, 0.1];
 let lastInput = -1e9;
-const hint = document.getElementById('hint');
 
 addEventListener('pointermove', e => {
   target = toScene(e.clientX, e.clientY);
   lastInput = performance.now() / 1000;
-  hint.classList.add('gone');
 }, { passive: true });
 addEventListener('pointerdown', e => {
   target = toScene(e.clientX, e.clientY);
